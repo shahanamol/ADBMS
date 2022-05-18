@@ -1,7 +1,7 @@
 -- 
 -- Roll No: <48>
 -- Name: <shahana mol>
--- Program: <Exam>
+-- Program: <Vehicle Insurance Management System - I>
 -- 
 
 
@@ -72,15 +72,13 @@ insert into owns VALUES (105,'KL65C6888');
 
 --
 -- Dumping data for table <policy>
---
-
-INSERT INTO POLICY VALUES(1,'KL10AZ4058',100,'2016-01-01',15000,10000,'cheque');
-INSERT INTO POLICY VALUES(2,'KL65C6887',100,'2017-01-01',16000,9000,'cheque');
-INSERT INTO POLICY VALUES(3,'KL53J7558',101,'2012-10-01',16000,9000,'cash');
-INSERT INTO POLICY VALUES(4,'KL65M4558',102,'2009-12-01',9000,5000,'UPI');
-INSERT INTO POLICY VALUES(5,'KL10AV9058',103,'2015-11-11',19000,15000,'UPI');
-INSERT INTO POLICY VALUES(6,'KL55B7878',104,'2015-11-11',18000,15000,'UPI');
-INSERT INTO POLICY VALUES(7,'KL65C6888',105,'2016-01-01',15000,10000,'cheque');
+insert into policy values(1,'KL10AZ4058',100,'2016-01-01',15000,10000,'cheque');
+insert into policy values(2,'KL65C6887',100,'2017-01-01',16000,9000,'cheque');
+insert into policy values(3,'KL53J7558',101,'2012-10-01',16000,9000,'cash');
+insert into policy values(4,'KL65M4558',102,'2009-12-01',9000,5000,'UPI');
+insert into policy values(5,'KL10AV9058',103,'2015-11-11',19000,15000,'UPI');
+insert into policy values(6,'KL55B7878',104,'2015-11-11',18000,15000,'UPI');
+insert into policy values(7,'KL65C6888',105,'2016-01-01',15000,10000,'cheque');
 
 
 --
@@ -96,32 +94,37 @@ insert into accident values (6,'malappuram','2016-10-10');
 --
 -- Dumping data for table <participated>
 --
-INSERT INTO PARTICIPATED VALUES (100,'KL10AZ4058',1,1000);
-INSERT INTO PARTICIPATED VALUES (100,'KL65C6887',2,1000);
-INSERT INTO PARTICIPATED VALUES (101,'KL53J7558',3,2000);
-INSERT INTO PARTICIPATED VALUES (102,'KL65M4558',4,2000);
-INSERT INTO PARTICIPATED VALUES (103,'KL10AV9058',5,3000);
-INSERT INTO PARTICIPATED VALUES (105,'KL65C6888',6,1000);
+insert into participated values(100,'KL10AZ4058',1,1000);
+insert into policy values(100,'KL65C6887',2,1000);
+insert into policy values (101,'KL53J7558',3,2000);
+insert into policy values(102,'KL65M4558',4,2000);
+insert into policy values(103,'KL10AV9058',5,3000);
+insert into policy values(105,'KL65C6888',6,1000);
 
 
 
+--Question1---------------
 
+SELECT customer.name FROM customer,policy WHERE policy.license_no=customer.license_no AND policy.issue_date>'2014-01-01';
 
-SELECT CUSTOMER.NAME, POLICY.POLICY_NO FROM CUSTOMER,POLICY WHERE POLICY.LICENSE_NO=CUSTOMER.LICENSE_NO AND POLICY.ISSUE_DATE>'2014-01-01';
+--Question2---------------
 
+SELECT C.name ,P.reg_no,P.license_no FROM customer AS C , policy AS P WHERE P.license_no=C.license_no AND mode='cheque';
 
-SELECT C.NAME ,P.REG_NO,P.LICENSE_NO FROM CUSTOMER AS C , POLICY AS P WHERE P.LICENSE_NO=C.LICENSE_NO AND MODE='CHEQUE';
-
+--Question3---------------
 
 select name,license_no from customer natural join (vehicle natural join policy) where make='maruti';
 
+--Question4---------------
 
-select name from customer natural join ( accident natural join (participated natural join policy)) where datediff(doa,issue_date)<365;
+select name,license_no from customer natural join (vehicle natural join policy) where make='maruti';
 
+--Question5---------------
+select name,count(license_no) from participated natural join customer group by license_no having name='John';
 
-select name ,count(license_no)from participated natural join customer group by license_no having name='John';
+--Question6---------------
 
-
+delete from owns where reg_no in (select reg_no from vehicle where model='Alto') and license_no=(select license_no from customer where name='Abel');
 
 
 --
