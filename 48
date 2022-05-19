@@ -1,0 +1,35 @@
+-- 
+-- Roll No: <48>
+-- Name: <shahana mol>
+-- Program: <Vehicle Insurance Management System - II>
+-- 
+
+
+--
+-- SQl Query Statements
+--
+ select monthname('2020-03-01')as monthname;
+
+select dayname('2020-03-01')as dayname;
+
+select year('2017-10-10')as year;
+
+select date('2017-10-10')as date;
+
+select month('2016-10-10')as month;
+
+create view policy_holder as select policy_no,issue_date,name,reg_no,model,yom,cc,sc,value,policy_amt,mode from customer natural join policy natural join vehicle;
+
+create view claim as select claim_no,policy_no,name,reg_no,doa,location,make,model,amt from ((((accident natural join participated)natural join policy)natural join owns)natural join vehicle)natural join customer;
+
+delimiter $
+mysql> create procedure policy(IN claim_nom int,OUT amount int)
+    -> Begin
+    -> select amt from participated where claim_nom=claim_no;
+    -> End$
+
+call policy(2,@john);
+
+-- -----SQL query statments preceeded by the its question-------- # This line may be removed in the actual file
+-- -----Question number should be commented---------------#This line may be removed in the actual file
+
