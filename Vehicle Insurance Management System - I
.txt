@@ -1,6 +1,6 @@
 -- 
 -- Roll No: <48>
--- Name: <shahana mol>
+-- Name: <Shahana Mol>
 -- Program: <Vehicle Insurance Management System - I>
 -- 
 
